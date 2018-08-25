@@ -61,7 +61,7 @@ def run():
             if dm[0]['sender']['screen_name'] == 'imgprocessing':
                 pass
 
-            if len(dm[0]['text']) <= 1000 and dm[0]['text'] != cache:
+            if len(dm[0]['text']) <= 1000 and dm[0]['text']:
 
                 if '#hehe' in dm[0]['text']:
 
