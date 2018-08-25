@@ -70,6 +70,7 @@ def run():
     print("imgprocessing2.0 is running..")
 
     cache = str()
+    list_of_sender = list()
 
     while True:
 
@@ -79,13 +80,19 @@ def run():
 
             for i in dm:
 
+                if i['sender'] in list_of_sender:
+                    continue
+
                 if i['text'].lower() == 'test':
                     continue
 
-                if len(i['text']) == 1:
+                if len(i['text']) <= 4:
                     continue
 
                 if i['sender'] == cache:
+                    # delete the message
+                    message_id = i['id']
+                    api.DestroyDirectMessage(message_id=message_id)
                     continue
 
                 if len(i['text']) <= 1000:
@@ -134,6 +141,7 @@ def run():
                         postdm(username=sender, message=notify)
 
                         cache = sender
+                        list_of_sender.append(sender)
 
                         # make interval
                         time.sleep(60)
@@ -180,9 +188,13 @@ def run():
                         postdm(username=sender, message=notify)
 
                         cache = sender
+                        list_of_sender.append(sender)
 
                         # make interval
                         time.sleep(60)
+        if dm is None:
+            list_of_sender = []
+
 
 
 
