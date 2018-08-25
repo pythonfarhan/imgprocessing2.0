@@ -114,10 +114,10 @@ def run():
                         draw = ImageDraw.Draw(image)
                         (x, y) = (40, 70)
                         color = 'rgb(255, 255, 255)'
-                        font = ImageFont.truetype('Roboto-Light.ttf', size=25)
+                        font = ImageFont.truetype('Roboto-Light.ttf', size=22)
                         draw.text((x, y), text=text, fill=color, font=font)
 
-                        font = ImageFont.truetype('Roboto-Light.ttf', size=20)
+                        font = ImageFont.truetype('Roboto-Light.ttf', size=15)
                         draw.text((10, 760), text='twitter.com/imgprocessing', font=font)
 
                         image.save('tweet.png')
@@ -160,10 +160,10 @@ def run():
                         draw = ImageDraw.Draw(image)
                         (x, y) = (40, 70)
                         color = 'rgb(255, 255, 255)'
-                        font = ImageFont.truetype('Roboto-Light.ttf', size=25)
+                        font = ImageFont.truetype('Roboto-Light.ttf', size=22)
                         draw.text((x, y), text=text, fill=color, font=font)
 
-                        font = ImageFont.truetype('Roboto-Light.ttf', size=20)
+                        font = ImageFont.truetype('Roboto-Light.ttf', size=15)
                         draw.text((10, 760), text='twitter.com/imgprocessing', font=font)
 
                         image.save('tweet.png')
