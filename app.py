@@ -67,7 +67,6 @@ def getDm():
 
 def run():
     api = python_twitter()
-    api.PostUpdate('imgprocessing 2.0 is running..')
     print("imgprocessing2.0 is running..")
 
     cache = str()
@@ -80,18 +79,18 @@ def run():
 
             for i in dm:
 
-                if dm[i]['sender'] == cache:
+                if i['sender'] == cache:
                     continue
 
-                if len(dm[i]['text']) <= 1000:
+                if len(i['text']) <= 1000:
 
-                    if '#hehe' in dm[i]['text']:
+                    if '#hehe' in i['text']:
                         # get and set sender screen_name
-                        sender = dm[i]['sender']
+                        sender = i['sender']
                         caption = 'sender: %s (use #hehe if you want to show your screen name)' % sender
 
                         # get twitter dm text
-                        message = dm[i]['text']
+                        message = i['text']
 
                         text = str(message).replace('#hehe', '')
                         text = textwrap.fill(text, width=40)
@@ -121,7 +120,7 @@ def run():
                         tweetit('tweet.png', text=caption)
 
                         # delete the message
-                        message_id = dm[i]['id']
+                        message_id = i['id']
                         api.DestroyDirectMessage(message_id=message_id)
 
                         # notify sender
@@ -136,10 +135,10 @@ def run():
                     else:
 
                         # get sender name
-                        sender = dm[i]['sender']
+                        sender = i['sender']
 
                         # get twitter dm text
-                        message = dm[i]['text']
+                        message = i['text']
                         text = textwrap.fill(message, width=40)
 
                         # download image
@@ -167,7 +166,7 @@ def run():
                         tweetit('tweet.png')
 
                         # delete the message
-                        message_id = dm[0]['id']
+                        message_id = i['id']
                         api.DestroyDirectMessage(message_id=message_id)
 
                         # notify sender
