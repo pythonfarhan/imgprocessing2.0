@@ -79,6 +79,12 @@ def run():
 
             for i in dm:
 
+                if i['text'].lower() == 'test':
+                    continue
+
+                if len(i['text']) == 1:
+                    continue
+
                 if i['sender'] == cache:
                     continue
 
