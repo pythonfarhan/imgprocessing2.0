@@ -1,6 +1,8 @@
 from PIL import Image, ImageDraw, ImageFont, ImageEnhance
 import textwrap
-
+import time
+import _constant
+import twitter
 # original = Image.open('download.png')
 # enhancer = ImageEnhance.Brightness(original)
 #
@@ -31,3 +33,40 @@ import textwrap
 #     print(len(double_value))
 # except Exception as e:
 #     print(str(e))
+
+api = twitter.Api(consumer_key=_constant.consumer_key,
+                  consumer_secret=_constant.consumer_secret,
+                  access_token_key=_constant.access_token,
+                  access_token_secret=_constant.access_token_secret)
+dm = api.GetDirectMessages(full_text=True, return_json=True, count=10)
+
+
+tweets = ['halo', 'aku', 'aku', 'sayang', 'kamu']
+
+# cache = ''
+# for i in range(len(tweets)):
+#     if tweets[i] == cache:
+#         continue
+#     print(tweets[i])
+#     cache = tweets[i]
+#     print('cache: %s' % cache)
+#     time.sleep(1)
+
+def getDm():
+    result = list()
+    for i in range(len(dm)):
+        text = dm[i]['text']
+        sender = dm[i]['sender']['screen_name']
+        d = dict(text=text, sender=sender)
+        result.append(d)
+    return result
+
+dm = getDm()
+cache = str()
+for i in dm:
+    if i['sender'] == cache:
+        continue
+    print(i['text'])
+    cache = i['sender']
+    time.sleep(1)
+

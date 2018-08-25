@@ -7,10 +7,12 @@ import textwrap
 import time
 
 # python-twitter auth
-api = twitter.Api(consumer_key=_constant.consumer_key,
-                  consumer_secret=_constant.consumer_secret,
-                  access_token_key=_constant.access_token,
-                  access_token_secret=_constant.access_token_secret)
+def python_twitter():
+    api = twitter.Api(consumer_key=_constant.consumer_key,
+                      consumer_secret=_constant.consumer_secret,
+                      access_token_key=_constant.access_token,
+                      access_token_secret=_constant.access_token_secret)
+    return api
 
 # tweepy auth
 def twitterAuth():
@@ -49,8 +51,10 @@ def postdm(username, message):
             pass
 
 def run():
-
+    api = python_twitter()
     print("imgprocessing2.0 is running..")
+
+    cache = str()
 
     while True:
 
@@ -58,8 +62,8 @@ def run():
 
         if dm is not None:
 
-            if dm[0]['sender']['screen_name'] == 'imgprocessing':
-                pass
+            if dm[0]['sender']['screen_name'] == cache:
+                continue
 
             if len(dm[0]['text']) <= 1000 and dm[0]['text']:
 
@@ -107,8 +111,11 @@ def run():
                     notify = 'your dm was tweeted!'
                     postdm(username=sender, message=notify)
 
+                    cache = sender
+
                     # make interval
                     time.sleep(60)
+
                 else:
 
                     # get sender name
@@ -149,6 +156,8 @@ def run():
                     # notify sender
                     notify = 'your dm was tweeted!'
                     postdm(username=sender, message=notify)
+
+                    cache = sender
 
                     # make interval
                     time.sleep(60)
