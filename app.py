@@ -41,6 +41,7 @@ def tweetit(filename, text=None):
         except Exception:
             pass
 
+# notify sender
 def postdm(username, message):
     api = python_twitter()
     while True:
@@ -51,117 +52,132 @@ def postdm(username, message):
         except Exception:
             pass
 
+# get dm
+def getDm():
+    api = python_twitter()
+    dm = api.GetDirectMessages(full_text=True, return_json=True)
+    result = list()
+    for i in range(len(dm)):
+        text = dm[i]['text']
+        id = dm[i]['id']
+        sender = dm[i]['sender']['screen_name']
+        d = dict(text=text, sender=sender, id=id)
+        result.append(d)
+    return result
+
 def run():
     api = python_twitter()
+    api.PostUpdate('imgprocessing 2.0 is running..')
     print("imgprocessing2.0 is running..")
 
     cache = str()
 
     while True:
 
-        dm = api.GetDirectMessages(return_json=True, full_text=True)
+        dm = getDm()
 
         if dm is not None:
 
-            if dm[0]['sender']['screen_name'] == cache:
-                continue
+            for i in dm:
 
-            if len(dm[0]['text']) <= 1000 and dm[0]['text']:
+                if dm[i]['sender'] == cache:
+                    continue
 
-                if '#hehe' in dm[0]['text']:
+                if len(dm[i]['text']) <= 1000:
 
-                    # get and set sender screen_name
-                    sender = dm[0]['sender']['screen_name']
-                    caption = 'sender: %s (use #hehe if you want to show your screen name)' % sender
+                    if '#hehe' in dm[i]['text']:
+                        # get and set sender screen_name
+                        sender = dm[i]['sender']
+                        caption = 'sender: %s (use #hehe if you want to show your screen name)' % sender
 
-                    # get twitter dm text
-                    message = dm[0]['text']
+                        # get twitter dm text
+                        message = dm[i]['text']
 
-                    text = str(message).replace('#hehe', '')
-                    text = textwrap.fill(text, width=40)
+                        text = str(message).replace('#hehe', '')
+                        text = textwrap.fill(text, width=40)
 
-                    # download image
-                    download('download.png')
+                        # download image
+                        download('download.png')
 
-                    # edit download.png and save it as background.png
-                    downloadpng = Image.open('download.png')
-                    enhancer = ImageEnhance.Brightness(downloadpng)
-                    enhancer.enhance(0.5).save('background.png')
+                        # edit download.png and save it as background.png
+                        downloadpng = Image.open('download.png')
+                        enhancer = ImageEnhance.Brightness(downloadpng)
+                        enhancer.enhance(0.5).save('background.png')
 
-                    # write dm text on background.png
-                    image = Image.open('background.png')
-                    draw = ImageDraw.Draw(image)
-                    (x, y) = (40, 70)
-                    color = 'rgb(255, 255, 255)'
-                    font = ImageFont.truetype('Roboto-Light.ttf', size=20)
-                    draw.text((x, y), text=text, fill=color, font=font)
+                        # write dm text on background.png
+                        image = Image.open('background.png')
+                        draw = ImageDraw.Draw(image)
+                        (x, y) = (40, 70)
+                        color = 'rgb(255, 255, 255)'
+                        font = ImageFont.truetype('Roboto-Light.ttf', size=25)
+                        draw.text((x, y), text=text, fill=color, font=font)
 
-                    font = ImageFont.truetype('Roboto-Light.ttf', size=15)
-                    draw.text((10, 750), text='twitter.com/imgprocessing', font=font)
+                        font = ImageFont.truetype('Roboto-Light.ttf', size=20)
+                        draw.text((10, 760), text='twitter.com/imgprocessing', font=font)
 
-                    image.save('tweet.png')
+                        image.save('tweet.png')
 
-                    # tweet the tweet.png
-                    tweetit('tweet.png', text=caption)
+                        # tweet the tweet.png
+                        tweetit('tweet.png', text=caption)
 
-                    # delete the message
-                    message_id = dm[0]['id']
-                    api.DestroyDirectMessage(message_id=message_id)
+                        # delete the message
+                        message_id = dm[i]['id']
+                        api.DestroyDirectMessage(message_id=message_id)
 
-                    # notify sender
-                    notify = 'your dm was tweeted!'
-                    postdm(username=sender, message=notify)
+                        # notify sender
+                        notify = 'your dm was tweeted!'
+                        postdm(username=sender, message=notify)
 
-                    cache = sender
+                        cache = sender
 
-                    # make interval
-                    time.sleep(60)
+                        # make interval
+                        time.sleep(60)
 
-                else:
+                    else:
 
-                    # get sender name
-                    sender = dm[0]['sender']['screen_name']
+                        # get sender name
+                        sender = dm[i]['sender']
 
-                    # get twitter dm text
-                    message = dm[0]['text']
-                    text = textwrap.fill(message, width=40)
+                        # get twitter dm text
+                        message = dm[i]['text']
+                        text = textwrap.fill(message, width=40)
 
-                    # download image
-                    download('download.png')
+                        # download image
+                        download('download.png')
 
-                    # edit download.png and save it as background.png
-                    downloadpng = Image.open('download.png')
-                    enhancer = ImageEnhance.Brightness(downloadpng)
-                    enhancer.enhance(0.5).save('background.png')
+                        # edit download.png and save it as background.png
+                        downloadpng = Image.open('download.png')
+                        enhancer = ImageEnhance.Brightness(downloadpng)
+                        enhancer.enhance(0.5).save('background.png')
 
-                    # write dm text on background.png
-                    image = Image.open('background.png')
-                    draw = ImageDraw.Draw(image)
-                    (x, y) = (40, 70)
-                    color = 'rgb(255, 255, 255)'
-                    font = ImageFont.truetype('Roboto-Light.ttf', size=20)
-                    draw.text((x, y), text=text, fill=color, font=font)
+                        # write dm text on background.png
+                        image = Image.open('background.png')
+                        draw = ImageDraw.Draw(image)
+                        (x, y) = (40, 70)
+                        color = 'rgb(255, 255, 255)'
+                        font = ImageFont.truetype('Roboto-Light.ttf', size=25)
+                        draw.text((x, y), text=text, fill=color, font=font)
 
-                    font = ImageFont.truetype('Roboto-Light.ttf', size=15)
-                    draw.text((10, 750), text='twitter.com/imgprocessing', font=font)
+                        font = ImageFont.truetype('Roboto-Light.ttf', size=20)
+                        draw.text((10, 760), text='twitter.com/imgprocessing', font=font)
 
-                    image.save('tweet.png')
+                        image.save('tweet.png')
 
-                    # tweet the tweet.png
-                    tweetit('tweet.png')
+                        # tweet the tweet.png
+                        tweetit('tweet.png')
 
-                    # delete the message
-                    message_id = dm[0]['id']
-                    api.DestroyDirectMessage(message_id=message_id)
+                        # delete the message
+                        message_id = dm[0]['id']
+                        api.DestroyDirectMessage(message_id=message_id)
 
-                    # notify sender
-                    notify = 'your dm was tweeted!'
-                    postdm(username=sender, message=notify)
+                        # notify sender
+                        notify = 'your dm was tweeted!'
+                        postdm(username=sender, message=notify)
 
-                    cache = sender
+                        cache = sender
 
-                    # make interval
-                    time.sleep(60)
+                        # make interval
+                        time.sleep(60)
 
 
 
