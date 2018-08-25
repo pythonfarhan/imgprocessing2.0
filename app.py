@@ -42,6 +42,7 @@ def tweetit(filename, text=None):
             pass
 
 def postdm(username, message):
+    api = python_twitter()
     while True:
         try:
             api.PostDirectMessage(screen_name=username, text=message)
@@ -63,7 +64,7 @@ def run():
         if dm is not None:
 
             if dm[0]['sender']['screen_name'] == cache:
-                pass
+                continue
 
             if len(dm[0]['text']) <= 1000 and dm[0]['text']:
 
