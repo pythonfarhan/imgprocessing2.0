@@ -4,7 +4,6 @@ import requests
 import tweepy
 from PIL import Image, ImageDraw, ImageFont, ImageEnhance
 import textwrap
-import json
 import time
 
 # python-twitter auth
@@ -40,18 +39,17 @@ def tweetit(filename, text=None):
         except Exception:
             pass
 
-# dm = api.GetDirectMessages(return_json=True, full_text=True)
-# text = dm[0]['text']
-# text = u'%s' % text
-# print(text)
-
 def run():
     while True:
 
         dm = api.GetDirectMessages(return_json=True, full_text=True)
 
         if dm is not None:
-            if len(dm[0]['text']) <= 1000:
+
+            cache = ''
+
+            if len(dm[0]['text']) <= 1000 and dm[0]['text'] != cache:
+
                 if '#hehe' in dm[0]['text']:
 
                     # get and set sender screen_name
@@ -59,8 +57,9 @@ def run():
                     caption = 'sender: %s (if you want to show your screen name, please use #hehe)' % sender
 
                     # get twitter dm text
-                    text = dm[0]['text']
-                    text = str(text).replace('#hehe', '')
+                    message = dm[0]['text']
+
+                    text = str(message).replace('#hehe', '')
                     text = textwrap.fill(text, width=40)
 
                     # download image
@@ -78,6 +77,10 @@ def run():
                     color = 'rgb(255, 255, 255)'
                     font = ImageFont.truetype('Roboto-Light.ttf', size=20)
                     draw.text((x, y), text=text, fill=color, font=font)
+
+                    font = ImageFont.truetype('Roboto-Light.ttf', size=15)
+                    draw.text((10, 750), text='twitter.com/imgprocessing', font=font)
+
                     image.save('tweet.png')
 
                     # tweet the tweet.png
@@ -90,13 +93,10 @@ def run():
                     # make interval
                     time.sleep(60)
                 else:
-                    # get sender screen_name
-                    sender = dm[0]['sender']['screen_name']
 
                     # get twitter dm text
-                    text = dm[0]['text']
-                    text = u'%s' % text
-                    text = textwrap.fill(text, width=40)
+                    message = dm[0]['text']
+                    text = textwrap.fill(message, width=40)
 
                     # download image
                     download('download.png')
@@ -113,6 +113,10 @@ def run():
                     color = 'rgb(255, 255, 255)'
                     font = ImageFont.truetype('Roboto-Light.ttf', size=20)
                     draw.text((x, y), text=text, fill=color, font=font)
+
+                    font = ImageFont.truetype('Roboto-Light.ttf', size=15)
+                    draw.text((10, 750), text='twitter.com/imgprocessing', font=font)
+
                     image.save('tweet.png')
 
                     # tweet the tweet.png
@@ -124,6 +128,7 @@ def run():
 
                     # make interval
                     time.sleep(60)
+
 
 
 if __name__ == '__main__':
