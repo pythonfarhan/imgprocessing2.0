@@ -35,9 +35,8 @@ def tweetit(filename, text=None):
     api = twitterAuth()
     while True:
         try:
-            tweet = api.update_with_media(filename=filename, status=text)
+            api.update_with_media(filename=filename, status=text)
             print('%s was tweeted' % filename)
-            return tweet['id']
             break
         except Exception:
             pass
@@ -124,15 +123,14 @@ def run():
                         image.save('tweet.png')
 
                         # tweet the tweet.png
-                        tweetid = tweetit('tweet.png', text=caption)
+                        tweetit('tweet.png', text=caption)
 
                         # delete the message
                         message_id = i['id']
                         api.DestroyDirectMessage(message_id=message_id)
 
                         # notify sender
-                        urltweet = 'https://twitter.com/%s/status/%s' % (sender, tweetid)
-                        notify = 'your dm was tweeted! %s' % urltweet
+                        notify = 'your dm was tweeted!'
                         postdm(username=sender, message=notify)
 
                         cache = sender
@@ -171,15 +169,14 @@ def run():
                         image.save('tweet.png')
 
                         # tweet the tweet.png
-                        tweetid = tweetit('tweet.png')
+                        tweetit('tweet.png')
 
                         # delete the message
                         message_id = i['id']
                         api.DestroyDirectMessage(message_id=message_id)
 
                         # notify sender
-                        urltweet = 'https://twitter.com/%s/status/%s' % (sender, tweetid)
-                        notify = 'your dm was tweeted! %s' % urltweet
+                        notify = 'your dm was tweeted!'
                         postdm(username=sender, message=notify)
 
                         cache = sender
