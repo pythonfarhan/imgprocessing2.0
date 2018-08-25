@@ -40,6 +40,9 @@ def tweetit(filename, text=None):
             pass
 
 def run():
+
+    print("imgprocessing2.0 is running..")
+
     while True:
 
         dm = api.GetDirectMessages(return_json=True, full_text=True)
