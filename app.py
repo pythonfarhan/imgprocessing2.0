@@ -57,7 +57,7 @@ def run():
 
                     # get and set sender screen_name
                     sender = dm[0]['sender']['screen_name']
-                    caption = 'sender: %s (if you want to show your screen name, please use #hehe)' % sender
+                    caption = 'sender: %s (use #hehe if you want to show your screen name)' % sender
 
                     # get twitter dm text
                     message = dm[0]['text']
