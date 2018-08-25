@@ -39,6 +39,15 @@ def tweetit(filename, text=None):
         except Exception:
             pass
 
+def postdm(username, message):
+    while True:
+        try:
+            api.PostDirectMessage(screen_name=username, text=message)
+            print("%s's dm was sent" % username)
+            break
+        except Exception:
+            pass
+
 def run():
 
     print("imgprocessing2.0 is running..")
@@ -49,7 +58,8 @@ def run():
 
         if dm is not None:
 
-            cache = ''
+            if dm[0]['sender']['screen_name'] == 'imgprocessing':
+                pass
 
             if len(dm[0]['text']) <= 1000 and dm[0]['text'] != cache:
 
@@ -93,9 +103,16 @@ def run():
                     message_id = dm[0]['id']
                     api.DestroyDirectMessage(message_id=message_id)
 
+                    # notify sender
+                    notify = 'your dm was tweeted!'
+                    postdm(username=sender, message=notify)
+
                     # make interval
                     time.sleep(60)
                 else:
+
+                    # get sender name
+                    sender = dm[0]['sender']['screen_name']
 
                     # get twitter dm text
                     message = dm[0]['text']
@@ -128,6 +145,10 @@ def run():
                     # delete the message
                     message_id = dm[0]['id']
                     api.DestroyDirectMessage(message_id=message_id)
+
+                    # notify sender
+                    notify = 'your dm was tweeted!'
+                    postdm(username=sender, message=notify)
 
                     # make interval
                     time.sleep(60)
