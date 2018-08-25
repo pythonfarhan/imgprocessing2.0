@@ -62,8 +62,8 @@ def run():
 
         if dm is not None:
 
-            if dm[0]['sender']['screen_name'] == cache:
-                pass
+            # if dm[0]['sender']['screen_name'] == cache:
+            #     pass
 
             if len(dm[0]['text']) <= 1000 and dm[0]['text']:
 
