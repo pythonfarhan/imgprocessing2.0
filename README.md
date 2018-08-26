@@ -3,7 +3,10 @@ Pada versi sebelumnya, imgprocessing ditulis menggunakan **nodejs**, namun karen
 perubahan pada API twitter, jadi harus saya tulis ulang, tapi
 kali ini menggunakan **Python** karena sekarang saya sekarang
 bekerja full menggunakan python, sekalian untuk eksplor
-python juga hehe.
+python juga hehe. Ada juga beberapa fitur tambahan pada versi ini, seperti:
+- Tweet interval tiap 1 menit.
+- Notifikasi kepada *sender* saat tweetnya sudah terkirim.
+- Tipografi dan estetika baru pada gambar.
 
 # Getting the code
 Source code imgprocessing 2.0 ada di 
