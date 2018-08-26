@@ -92,20 +92,31 @@ def run():
 
             for i in range(len(dm)):
 
-                if len(list_of_sender) is not 0 and dm[i]['sender'] in list_of_sender: continue
+                if dm[i]['sender'] in list_of_sender:
+                    print('index %s was ignored because in list_of_sender' % i)
+                    continue
 
-                if dm[i]['text'].lower() == 'test': continue
+                if dm[i]['text'].lower() == 'test':
+                    print('index %s was ignored because using test' % i)
+                    continue
 
-                if 'https://' in dm[i]['text']: continue
+                if 'https://' in dm[i]['text']:
+                    print('index %s was ignored because posting link' % i)
+                    continue
 
-                if dm[i]['text'].lower() == '#hehe': continue
+                if dm[i]['text'].lower() == '#hehe':
+                    print('index %s was ignored because using only #hehe without any message' % i)
+                    continue
 
-                if len(dm[i]['text']) <= 4: continue
+                if len(dm[i]['text']) <= 4:
+                    print('index %s was ignored length of message is less than 4' % i)
+                    continue
 
                 if dm[i]['sender'] == cache:
                     # delete the message
                     message_id = dm[i]['id']
                     api.DestroyDirectMessage(message_id=message_id)
+                    print('index %s was ignored because spamming' % i)
                     continue
 
                 if len(dm[i]['text']) <= 1000:
