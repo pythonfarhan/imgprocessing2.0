@@ -83,7 +83,7 @@ def run():
     # handle duplicate text by sender
     cache = str()
 
-    list_of_text = list()
+    # list_of_text = list()
 
     dm = []
 
@@ -93,9 +93,9 @@ def run():
 
             for i in range(len(dm)):
 
-                if dm[i]['text'] in list_of_text:
-                    print('index %s was ignored because in list_of_text' % i)
-                    continue
+                # if dm[i]['text'] in list_of_text:
+                #     print('index %s was ignored because in list_of_text' % i)
+                #     continue
 
                 if dm[i]['text'].lower() == 'test':
                     print('index %s was ignored because using test' % i)
@@ -170,8 +170,8 @@ def run():
                         postdm(username=sender, message=notify)
 
                         cache = sender
-                        if dm[i]['text'] not in list_of_text:
-                            list_of_text.append(dm[i]['text'])
+                        # if dm[i]['text'] not in list_of_text:
+                        #     list_of_text.append(dm[i]['text'])
 
                         # make interval
                         time.sleep(60)
@@ -221,8 +221,8 @@ def run():
                         postdm(username=sender, message=notify)
 
                         cache = sender
-                        if dm[i]['text'] not in list_of_text:
-                            list_of_text.append(dm[i]['text'])
+                        # if dm[i]['text'] not in list_of_text:
+                        #     list_of_text.append(dm[i]['text'])
 
                         # make interval
                         time.sleep(60)
@@ -234,8 +234,8 @@ def run():
                         time.sleep(60)
 
 
-        if len(list_of_text) is 40:
-            list_of_text = []
+        # if len(list_of_text) is 40:
+        #     list_of_text = []
 
         if len(dm) is 0:
             dm = getDm()
