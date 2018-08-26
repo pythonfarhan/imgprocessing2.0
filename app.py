@@ -72,6 +72,7 @@ def getDm():
         result.append(d)
         result.reverse()
     print('dm reloaded')
+    print('please wait..')
     time.sleep(60)
     return result
 
