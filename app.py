@@ -91,13 +91,21 @@ def run():
 
                 if len(list_of_sender) is not 0 and dm[i]['sender'] in list_of_sender: continue
 
-                if dm[i]['text'].lower() == 'test': continue
+                if dm[i]['text'].lower() == 'test':
+                    dm.remove(dm[i])
+                    continue
 
-                if 'https://' in dm[i]['text']: continue
+                if 'https://' in dm[i]['text']:
+                    dm.remove(dm[i])
+                    continue
 
-                if dm[i]['text'].lower() == '#hehe': continue
+                if dm[i]['text'].lower() == '#hehe':
+                    dm.remove(dm[i])
+                    continue
 
-                if len(dm[i]['text']) <= 4: continue
+                if len(dm[i]['text']) <= 4:
+                    dm.remove(dm[i])
+                    continue
 
                 if dm[i]['sender'] == cache:
                     # delete the message
