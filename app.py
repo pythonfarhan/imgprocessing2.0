@@ -145,6 +145,7 @@ def run():
 
                         # tweet the tweet.png
                         tweetit('tweet.png', text=caption)
+                        print('index of %s' % i)
 
                         # delete the message
                         message_id = dm[i]['id']
@@ -195,6 +196,7 @@ def run():
 
                         # tweet the tweet.png
                         tweetit('tweet.png')
+                        print('index of %s' % i)
 
                         # delete the message
                         message_id = dm[i]['id']
