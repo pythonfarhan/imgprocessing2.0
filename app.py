@@ -103,7 +103,7 @@ def run():
                 textdm = getMessage(dm[i]['text'])
 
                 if textdm is None:
-                    print('index %s was ignored because not use []')
+                    print('index %s was ignored because not use []' % i)
                     continue
 
                 if textdm is not None:
