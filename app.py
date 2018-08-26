@@ -65,7 +65,7 @@ def getDm():
     dm = api.GetDirectMessages(full_text=True, return_json=True)
     result = list()
     for i in range(len(dm)):
-        text = textdm
+        text = dm[i]['text']
         id = dm[i]['id']
         sender = dm[i]['sender']['screen_name']
         d = dict(text=text, sender=sender, id=id)
