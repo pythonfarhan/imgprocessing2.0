@@ -78,39 +78,40 @@ def run():
     print("imgprocessing2.0 is running..")
 
     cache = str()
+
     list_of_sender = list()
+
+    dm = []
 
     while True:
 
-        dm = getDm()
+        if len(dm) is not 0:
 
-        if dm is not None:
+            for i in range(len(dm)):
 
-            for i in dm:
+                if dm[i]['sender'] in list_of_sender: continue
 
-                if i['sender'] in list_of_sender: continue
+                if dm[i]['text'].lower() == 'test': continue
 
-                if i['text'].lower() == 'test': continue
+                if dm[i]['text'].lower() == '#hehe': continue
 
-                if i['text'].lower() == '#hehe': continue
+                if len(dm[i]['text']) <= 4: continue
 
-                if len(i['text']) <= 4: continue
-
-                if i['sender'] == cache:
+                if dm[i]['sender'] == cache:
                     # delete the message
-                    message_id = i['id']
+                    message_id = dm[i]['id']
                     api.DestroyDirectMessage(message_id=message_id)
                     continue
 
-                if len(i['text']) <= 1000:
+                if len(dm[i]['text']) <= 1000:
 
-                    if '#hehe' in i['text']:
+                    if '#hehe' in dm[i]['text']:
                         # get and set sender screen_name
-                        sender = i['sender']
+                        sender = dm[i]['sender']
                         caption = 'sender: %s (use #hehe if you want to show your screen name)' % sender
 
                         # get twitter dm text
-                        message = i['text']
+                        message = dm[i]['text']
 
                         text = str(message).replace('#hehe', '')
                         text = textwrap.fill(text, width=40)
@@ -141,7 +142,7 @@ def run():
                         tweetit('tweet.png', text=caption)
 
                         # delete the message
-                        message_id = i['id']
+                        message_id = dm[i]['id']
                         api.DestroyDirectMessage(message_id=message_id)
 
                         # notify sender
@@ -153,16 +154,18 @@ def run():
                         cache = sender
                         list_of_sender.append(sender)
 
+                        dm.remove(dm[i])
+
                         # make interval
                         time.sleep(60)
 
                     else:
 
                         # get sender name
-                        sender = i['sender']
+                        sender = dm[i]['sender']
 
                         # get twitter dm text
-                        message = i['text']
+                        message = dm[i]['text']
                         text = textwrap.fill(message, width=40)
 
                         # download image
@@ -190,7 +193,7 @@ def run():
                         tweetit('tweet.png')
 
                         # delete the message
-                        message_id = i['id']
+                        message_id = dm[i]['id']
                         api.DestroyDirectMessage(message_id=message_id)
 
                         # notify sender
@@ -203,10 +206,16 @@ def run():
                         if sender not in list_of_sender:
                             list_of_sender.append(sender)
 
+                        dm.remove(dm[i])
+
                         # make interval
                         time.sleep(60)
+
         if len(list_of_sender) is 40:
             list_of_sender = []
+
+        if len(dm) is 0:
+            dm = getDm()
 
 
 
