@@ -73,7 +73,7 @@ def getDm():
         result.reverse()
     print('dm reloaded')
     print('please wait..')
-    time.sleep(60)
+    time.sleep(60*5)
     return result
 
 # get message
@@ -108,6 +108,8 @@ def run():
 
                 if textdm is None:
                     print('index %s was ignored because not use []' % i)
+                    print('loading in 5 sec..')
+                    time.sleep(5)
                     if lap is '' and str(i) not in lap:
                         lap = str(i)
                         continue
@@ -120,6 +122,9 @@ def run():
 
                     if textdm in list_of_text:
                         print('index %s was ignored because in list_of_text' % i)
+                        # delete the message
+                        message_id = dm[i]['id']
+                        api.DestroyDirectMessage(message_id=message_id)
                         if lap is '' and str(i) not in lap:
                             lap = str(i)
                             continue
@@ -131,18 +136,30 @@ def run():
 
                     if textdm.lower() == 'test':
                         print('index %s was ignored because using test' % i)
+                        # delete the message
+                        message_id = dm[i]['id']
+                        api.DestroyDirectMessage(message_id=message_id)
                         continue
 
                     if 'https://' in textdm:
                         print('index %s was ignored because posting link' % i)
+                        # delete the message
+                        message_id = dm[i]['id']
+                        api.DestroyDirectMessage(message_id=message_id)
                         continue
 
                     if textdm.lower() == '#hehe':
                         print('index %s was ignored because using only #hehe without any message' % i)
+                        # delete the message
+                        message_id = dm[i]['id']
+                        api.DestroyDirectMessage(message_id=message_id)
                         continue
 
                     if len(textdm) <= 4:
                         print('index %s was ignored length of message is less than 4' % i)
+                        # delete the message
+                        message_id = dm[i]['id']
+                        api.DestroyDirectMessage(message_id=message_id)
                         continue
 
                     if dm[i]['sender'] == cache:
