@@ -92,6 +92,8 @@ def run():
 
                 if i['text'].lower() == 'test': continue
 
+                if i['text'].lower() == '#hehe': continue
+
                 if len(i['text']) <= 4: continue
 
                 if i['sender'] == cache:
