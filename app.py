@@ -72,6 +72,7 @@ def getDm():
         result.append(d)
         result.reverse()
     print('dm reloaded')
+    time.sleep(60)
     return result
 
 # get message
@@ -111,7 +112,7 @@ def run():
                         continue
                     if i == lap:
                         dm = getDm()
-                        print('please wait')
+                        print('please wait..')
                         time.sleep(60)
 
                 if textdm is not None:
