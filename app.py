@@ -80,8 +80,6 @@ def run():
 
     cache = str()
 
-    # list_of_sender = list()
-
     dm = []
 
     while True:
@@ -89,8 +87,6 @@ def run():
         if len(dm) is not 0:
 
             for i in range(len(dm)):
-
-                # if len(list_of_sender) is not 0 and dm[i]['sender'] in list_of_sender: continue
 
                 if dm[i]['text'].lower() == 'test':
                     dm.remove(dm[i])
@@ -163,7 +159,6 @@ def run():
                         postdm(username=sender, message=notify)
 
                         cache = sender
-                        # list_of_sender.append(sender)
 
                         dm.remove(dm[i])
 
@@ -214,16 +209,12 @@ def run():
                         postdm(username=sender, message=notify)
 
                         cache = sender
-                        # if sender not in list_of_sender:
-                        #     list_of_sender.append(sender)
 
                         dm.remove(dm[i])
 
                         # make interval
                         time.sleep(60)
 
-        # if len(list_of_sender) is 40:
-        #     list_of_sender = []
 
         if len(dm) is 0:
             dm = getDm()

@@ -64,12 +64,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="292">
-              <caret line="186" lean-forward="true" selection-start-line="186" selection-end-line="186" />
+            <state relative-caret-position="201">
+              <caret line="216" lean-forward="true" selection-start-line="216" selection-end-line="216" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
-                <marker date="1535266263009" expanded="true" signature="193:518" ph="..." />
-                <marker date="1535266263009" expanded="true" signature="1645:1750" ph="..." />
+                <marker date="1535266716991" expanded="true" signature="193:518" ph="..." />
+                <marker date="1535266716991" expanded="true" signature="1645:1750" ph="..." />
               </folding>
             </state>
           </provider>
@@ -134,6 +134,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>list_of_sender</find>
+      <find>list_of</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -349,12 +350,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="186" lean-forward="true" selection-start-line="186" selection-end-line="186" />
+        <state relative-caret-position="201">
+          <caret line="216" lean-forward="true" selection-start-line="216" selection-end-line="216" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
-            <marker date="1535266263009" expanded="true" signature="193:518" ph="..." />
-            <marker date="1535266263009" expanded="true" signature="1645:1750" ph="..." />
+            <marker date="1535266716991" expanded="true" signature="193:518" ph="..." />
+            <marker date="1535266716991" expanded="true" signature="1645:1750" ph="..." />
           </folding>
         </state>
       </provider>
