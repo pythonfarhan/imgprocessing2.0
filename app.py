@@ -89,7 +89,7 @@ def run():
 
             for i in range(len(dm)):
 
-                if dm[i]['sender'] in list_of_sender: continue
+                if len(list_of_sender) is not 0 and dm[i]['sender'] in list_of_sender: continue
 
                 if dm[i]['text'].lower() == 'test': continue
 
