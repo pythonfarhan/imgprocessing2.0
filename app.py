@@ -80,8 +80,10 @@ def run():
 
     print("imgprocessing2.0 is running..")
 
+    # handle duplicate text by sender
     cache = str()
 
+    list_of_text = list()
 
     dm = []
 
@@ -91,6 +93,9 @@ def run():
 
             for i in range(len(dm)):
 
+                if dm[i]['text'] in list_of_text:
+                    print('index %s was ignored because in list_of_text' % i)
+                    continue
 
                 if dm[i]['text'].lower() == 'test':
                     print('index %s was ignored because using test' % i)
@@ -112,7 +117,7 @@ def run():
                     # delete the message
                     message_id = dm[i]['id']
                     api.DestroyDirectMessage(message_id=message_id)
-                    print('index %s was ignored because spamming' % i)
+                    print('index %s was ignored because in cache' % i)
                     continue
 
                 if len(dm[i]['text']) <= 1000:
@@ -165,6 +170,8 @@ def run():
                         postdm(username=sender, message=notify)
 
                         cache = sender
+                        if dm[i]['text'] not in list_of_text:
+                            list_of_text.append(dm[i]['text'])
 
                         # make interval
                         time.sleep(60)
@@ -214,6 +221,8 @@ def run():
                         postdm(username=sender, message=notify)
 
                         cache = sender
+                        if dm[i]['text'] not in list_of_text:
+                            list_of_text.append(dm[i]['text'])
 
                         # make interval
                         time.sleep(60)
@@ -223,6 +232,10 @@ def run():
                     if len(dm) == 0:
                         print('no dm, please wait..')
                         time.sleep(60)
+
+
+        if len(list_of_text) is 40:
+            list_of_text = []
 
         if len(dm) is 0:
             dm = getDm()
