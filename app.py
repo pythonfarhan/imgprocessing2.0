@@ -82,7 +82,6 @@ def run():
 
     cache = str()
 
-    # list_of_sender = list()
 
     dm = []
 
@@ -92,9 +91,6 @@ def run():
 
             for i in range(len(dm)):
 
-                # if dm[i]['sender'] in list_of_sender:
-                #     print('index %s was ignored because in list_of_sender' % i)
-                #     continue
 
                 if dm[i]['text'].lower() == 'test':
                     print('index %s was ignored because using test' % i)
@@ -169,8 +165,6 @@ def run():
                         postdm(username=sender, message=notify)
 
                         cache = sender
-                        # if sender not in list_of_sender:
-                        #     list_of_sender.append(sender)
 
                         # make interval
                         time.sleep(60)
@@ -220,8 +214,6 @@ def run():
                         postdm(username=sender, message=notify)
 
                         cache = sender
-                        # if sender not in list_of_sender:
-                        #     list_of_sender.append(sender)
 
                         # make interval
                         time.sleep(60)
@@ -231,10 +223,6 @@ def run():
                     if len(dm) == 0:
                         print('no dm, please wait..')
                         time.sleep(60)
-
-
-        # if len(list_of_sender) is 40:
-        #     list_of_sender = []
 
         if len(dm) is 0:
             dm = getDm()
