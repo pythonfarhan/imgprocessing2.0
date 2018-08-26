@@ -11,7 +11,8 @@ def python_twitter():
     api = twitter.Api(consumer_key=_constant.consumer_key,
                       consumer_secret=_constant.consumer_secret,
                       access_token_key=_constant.access_token,
-                      access_token_secret=_constant.access_token_secret)
+                      access_token_secret=_constant.access_token_secret,
+                      sleep_on_rate_limit=True)
     return api
 
 # tweepy auth
@@ -52,6 +53,12 @@ def postdm(username, message):
         except Exception:
             pass
 
+# get latest tweet id for dm
+def getTweetId():
+    api = python_twitter()
+    statuses = api.GetUserTimeline(screen_name='imgprocessing')
+    return [i.id for i in statuses][0]
+
 # get dm
 def getDm():
     api = python_twitter()
@@ -67,6 +74,7 @@ def getDm():
 
 def run():
     api = python_twitter()
+
     print("imgprocessing2.0 is running..")
 
     cache = str()
@@ -80,14 +88,11 @@ def run():
 
             for i in dm:
 
-                if i['sender'] in list_of_sender:
-                    continue
+                if i['sender'] in list_of_sender: continue
 
-                if i['text'].lower() == 'test':
-                    continue
+                if i['text'].lower() == 'test': continue
 
-                if len(i['text']) <= 4:
-                    continue
+                if len(i['text']) <= 4: continue
 
                 if i['sender'] == cache:
                     # delete the message
@@ -137,7 +142,9 @@ def run():
                         api.DestroyDirectMessage(message_id=message_id)
 
                         # notify sender
-                        notify = 'your dm was tweeted!'
+                        tweet_id = getTweetId()
+                        url = 'https://twitter.com/%s/status/%s' % (sender, tweet_id)
+                        notify = 'your dm was tweeted! %s' % url
                         postdm(username=sender, message=notify)
 
                         cache = sender
@@ -184,15 +191,18 @@ def run():
                         api.DestroyDirectMessage(message_id=message_id)
 
                         # notify sender
-                        notify = 'your dm was tweeted!'
+                        tweet_id = getTweetId()
+                        url = 'https://twitter.com/%s/status/%s' % (sender, tweet_id)
+                        notify = 'your dm was tweeted! %s' % url
                         postdm(username=sender, message=notify)
 
                         cache = sender
-                        list_of_sender.append(sender)
+                        if sender not in list_of_sender:
+                            list_of_sender.append(sender)
 
                         # make interval
                         time.sleep(60)
-        if dm is None:
+        if len(list_of_sender) is 40:
             list_of_sender = []
 
 
