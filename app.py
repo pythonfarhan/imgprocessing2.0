@@ -93,6 +93,8 @@ def run():
 
                 if dm[i]['text'].lower() == 'test': continue
 
+                if 'https://' in dm[i]['text']: continue
+
                 if dm[i]['text'].lower() == '#hehe': continue
 
                 if len(dm[i]['text']) <= 4: continue
@@ -216,6 +218,7 @@ def run():
 
         if len(dm) is 0:
             dm = getDm()
+            print('dm reloaded')
 
 
 
