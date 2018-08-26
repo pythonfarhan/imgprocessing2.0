@@ -10,7 +10,7 @@ python juga hehe. Ada juga beberapa fitur tambahan pada versi ini, seperti:
 
 # Getting the code
 Source code imgprocessing 2.0 ada di 
-[sini](https://github.com/pythonfarhan/imgprocessing2.0).
+[https://github.com/pythonfarhan/imgprocessing2.0](https://github.com/pythonfarhan/imgprocessing2.0).
 
 Cek development terakhir secara anonimus dengan:
 
