@@ -65,7 +65,7 @@ def getDm():
     dm = api.GetDirectMessages(full_text=True, return_json=True)
     result = list()
     for i in range(len(dm)):
-        text = dm[i]['text']
+        text = textdm
         id = dm[i]['id']
         sender = dm[i]['sender']['screen_name']
         d = dict(text=text, sender=sender, id=id)
@@ -73,6 +73,13 @@ def getDm():
         result.reverse()
     print('dm reloaded')
     return result
+
+# get message
+def getMessage(text=str()):
+    if '[' in text and ']' in text:
+        text = text[text.find('[')+1:text.find(']')]
+        return text
+    return None
 
 def run():
 
@@ -83,7 +90,7 @@ def run():
     # handle duplicate text by sender
     cache = str()
 
-    # list_of_text = list()
+    list_of_text = list()
 
     dm = []
 
@@ -93,139 +100,149 @@ def run():
 
             for i in range(len(dm)):
 
-                # if dm[i]['text'] in list_of_text:
-                #     print('index %s was ignored because in list_of_text' % i)
-                #     continue
+                textdm = getMessage(dm[i]['text'])
 
-                if dm[i]['text'].lower() == 'test':
-                    print('index %s was ignored because using test' % i)
+                if textdm is None:
+                    print('index %s was ignored because not use []')
                     continue
 
-                if 'https://' in dm[i]['text']:
-                    print('index %s was ignored because posting link' % i)
-                    continue
+                if textdm is not None:
 
-                if dm[i]['text'].lower() == '#hehe':
-                    print('index %s was ignored because using only #hehe without any message' % i)
-                    continue
+                    if textdm in list_of_text:
+                        print('index %s was ignored because in list_of_text' % i)
+                        continue
 
-                if len(dm[i]['text']) <= 4:
-                    print('index %s was ignored length of message is less than 4' % i)
-                    continue
+                    if textdm.lower() == 'test':
+                        print('index %s was ignored because using test' % i)
+                        continue
 
-                if dm[i]['sender'] == cache:
-                    # delete the message
-                    message_id = dm[i]['id']
-                    api.DestroyDirectMessage(message_id=message_id)
-                    print('index %s was ignored because in cache' % i)
-                    continue
+                    if 'https://' in textdm:
+                        print('index %s was ignored because posting link' % i)
+                        continue
 
-                if len(dm[i]['text']) <= 1000:
+                    if textdm.lower() == '#hehe':
+                        print('index %s was ignored because using only #hehe without any message' % i)
+                        continue
 
-                    if '#hehe' in dm[i]['text']:
-                        # get and set sender screen_name
-                        sender = dm[i]['sender']
-                        caption = 'sender: %s (use #hehe if you want to show your screen name)' % sender
+                    if len(textdm) <= 4:
+                        print('index %s was ignored length of message is less than 4' % i)
+                        continue
 
-                        # get twitter dm text
-                        message = dm[i]['text']
-
-                        text = str(message).replace('#hehe', '')
-                        text = textwrap.fill(text, width=40)
-
-                        # download image
-                        download('download.png')
-
-                        # edit download.png and save it as background.png
-                        downloadpng = Image.open('download.png')
-                        enhancer = ImageEnhance.Brightness(downloadpng)
-                        enhancer.enhance(0.5).save('background.png')
-
-                        # write dm text on background.png
-                        image = Image.open('background.png')
-                        draw = ImageDraw.Draw(image)
-                        (x, y) = (40, 70)
-                        color = 'rgb(255, 255, 255)'
-                        font = ImageFont.truetype('Roboto-Light.ttf', size=23)
-                        draw.text((x, y), text=text, fill=color, font=font)
-
-                        font = ImageFont.truetype('Roboto-Light.ttf', size=17)
-                        footertext = 'twitter.com/imgprocessing - %s' % sender
-                        draw.text((10, 760), text=footertext, font=font)
-
-                        image.save('tweet.png')
-
-                        # tweet the tweet.png
-                        tweetit('tweet.png', text=caption)
-                        print('index of %s' % i)
-
+                    if dm[i]['sender'] == cache:
                         # delete the message
                         message_id = dm[i]['id']
                         api.DestroyDirectMessage(message_id=message_id)
+                        print('index %s was ignored because in cache' % i)
+                        continue
 
-                        # notify sender
-                        tweet_id = getTweetId()
-                        url = 'https://twitter.com/%s/status/%s' % (sender, tweet_id)
-                        notify = 'your dm was tweeted! %s' % url
-                        postdm(username=sender, message=notify)
+                    if len(textdm) <= 1000:
 
-                        cache = sender
-                        # if dm[i]['text'] not in list_of_text:
-                        #     list_of_text.append(dm[i]['text'])
+                        if '#hehe' in textdm:
+                            # get and set sender screen_name
+                            sender = dm[i]['sender']
+                            caption = 'sender: %s (use #hehe if you want to show your screen name)' % sender
 
-                        # make interval
-                        time.sleep(60)
+                            # get twitter dm text
+                            message = textdm
 
-                    else:
+                            text = str(message).replace('#hehe', '')
+                            text = textwrap.fill(text, width=40)
 
-                        # get sender name
-                        sender = dm[i]['sender']
+                            # download image
+                            download('download.png')
 
-                        # get twitter dm text
-                        message = dm[i]['text']
-                        text = textwrap.fill(message, width=40)
+                            # edit download.png and save it as background.png
+                            downloadpng = Image.open('download.png')
+                            enhancer = ImageEnhance.Brightness(downloadpng)
+                            enhancer.enhance(0.5).save('background.png')
 
-                        # download image
-                        download('download.png')
+                            # write dm text on background.png
+                            image = Image.open('background.png')
+                            draw = ImageDraw.Draw(image)
+                            (x, y) = (40, 70)
+                            color = 'rgb(255, 255, 255)'
+                            font = ImageFont.truetype('Roboto-Light.ttf', size=23)
+                            draw.text((x, y), text=text, fill=color, font=font)
 
-                        # edit download.png and save it as background.png
-                        downloadpng = Image.open('download.png')
-                        enhancer = ImageEnhance.Brightness(downloadpng)
-                        enhancer.enhance(0.5).save('background.png')
+                            font = ImageFont.truetype('Roboto-Light.ttf', size=17)
+                            footertext = 'twitter.com/imgprocessing - %s' % sender
+                            draw.text((10, 760), text=footertext, font=font)
 
-                        # write dm text on background.png
-                        image = Image.open('background.png')
-                        draw = ImageDraw.Draw(image)
-                        (x, y) = (40, 70)
-                        color = 'rgb(255, 255, 255)'
-                        font = ImageFont.truetype('Roboto-Light.ttf', size=22)
-                        draw.text((x, y), text=text, fill=color, font=font)
+                            image.save('tweet.png')
 
-                        font = ImageFont.truetype('Roboto-Light.ttf', size=15)
-                        draw.text((10, 760), text='twitter.com/imgprocessing', font=font)
+                            # tweet the tweet.png
+                            tweetit('tweet.png', text=caption)
+                            print('index of %s' % i)
 
-                        image.save('tweet.png')
+                            # delete the message
+                            message_id = dm[i]['id']
+                            api.DestroyDirectMessage(message_id=message_id)
 
-                        # tweet the tweet.png
-                        tweetit('tweet.png')
-                        print('index of %s' % i)
+                            # notify sender
+                            tweet_id = getTweetId()
+                            url = 'https://twitter.com/%s/status/%s' % (sender, tweet_id)
+                            notify = 'your dm was tweeted! %s' % url
+                            postdm(username=sender, message=notify)
 
-                        # delete the message
-                        message_id = dm[i]['id']
-                        api.DestroyDirectMessage(message_id=message_id)
+                            cache = sender
+                            if textdm not in list_of_text:
+                                list_of_text.append(textdm)
 
-                        # notify sender
-                        tweet_id = getTweetId()
-                        url = 'https://twitter.com/%s/status/%s' % (sender, tweet_id)
-                        notify = 'your dm was tweeted! %s' % url
-                        postdm(username=sender, message=notify)
+                            # make interval
+                            time.sleep(60)
 
-                        cache = sender
-                        # if dm[i]['text'] not in list_of_text:
-                        #     list_of_text.append(dm[i]['text'])
+                        else:
 
-                        # make interval
-                        time.sleep(60)
+                            # get sender name
+                            sender = dm[i]['sender']
+
+                            # get twitter dm text
+                            message = textdm
+                            text = textwrap.fill(message, width=40)
+
+                            # download image
+                            download('download.png')
+
+                            # edit download.png and save it as background.png
+                            downloadpng = Image.open('download.png')
+                            enhancer = ImageEnhance.Brightness(downloadpng)
+                            enhancer.enhance(0.5).save('background.png')
+
+                            # write dm text on background.png
+                            image = Image.open('background.png')
+                            draw = ImageDraw.Draw(image)
+                            (x, y) = (40, 70)
+                            color = 'rgb(255, 255, 255)'
+                            font = ImageFont.truetype('Roboto-Light.ttf', size=22)
+                            draw.text((x, y), text=text, fill=color, font=font)
+
+                            font = ImageFont.truetype('Roboto-Light.ttf', size=15)
+                            draw.text((10, 760), text='twitter.com/imgprocessing', font=font)
+
+                            image.save('tweet.png')
+
+                            # tweet the tweet.png
+                            tweetit('tweet.png')
+                            print('index of %s' % i)
+
+                            # delete the message
+                            message_id = dm[i]['id']
+                            api.DestroyDirectMessage(message_id=message_id)
+
+                            # notify sender
+                            tweet_id = getTweetId()
+                            url = 'https://twitter.com/%s/status/%s' % (sender, tweet_id)
+                            notify = 'your dm was tweeted! %s' % url
+                            postdm(username=sender, message=notify)
+
+                            cache = sender
+                            if textdm not in list_of_text:
+                                list_of_text.append(textdm)
+
+                            # make interval
+                            time.sleep(60)
+
+
 
                 if i == (len(dm) - 1):
                     dm = getDm()
@@ -234,8 +251,8 @@ def run():
                         time.sleep(60)
 
 
-        # if len(list_of_text) is 40:
-        #     list_of_text = []
+        if len(list_of_text) is 15:
+            list_of_text = []
 
         if len(dm) is 0:
             dm = getDm()
