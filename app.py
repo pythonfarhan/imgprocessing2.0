@@ -70,6 +70,7 @@ def getDm():
         sender = dm[i]['sender']['screen_name']
         d = dict(text=text, sender=sender, id=id)
         result.append(d)
+        result.reverse()
     return result
 
 def run():
@@ -227,6 +228,9 @@ def run():
         if len(dm) is 0:
             dm = getDm()
             print('dm reloaded')
+            if len(dm) == 0:
+                print('no dm, please wait..')
+                time.sleep(60)
 
 
 
