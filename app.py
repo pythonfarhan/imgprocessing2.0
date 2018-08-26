@@ -72,7 +72,7 @@ def getDm():
         result.append(d)
         result.reverse()
     print('dm reloaded')
-    api.PostUpdate('imgprocessing 2.0 will running again in 5 minutes. Please wait patienly..')
+    api.PostUpdate('imgprocessing 2.0 will running again in 5 minutes. Please wait patiently..')
     print('please wait..')
     time.sleep(60*5)
     return result
