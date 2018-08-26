@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f9dca58e-bafc-4589-af95-e3446d901ed4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_constant.py" beforeDir="false" afterPath="$PROJECT_DIR$/_constant.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -48,7 +46,7 @@
           <entry key="gitignore" value="19" />
           <entry key="gitinit" value="57" />
           <entry key="md" value="449" />
-          <entry key="py" value="5241" />
+          <entry key="py" value="5275" />
           <entry key="txt" value="1" />
         </counts>
       </usages-collector>
@@ -56,7 +54,7 @@
         <counts>
           <entry key="Markdown" value="449" />
           <entry key="PLAIN_TEXT" value="77" />
-          <entry key="Python" value="5241" />
+          <entry key="Python" value="5275" />
         </counts>
       </usages-collector>
     </session>
@@ -66,12 +64,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="112">
-              <caret line="191" lean-forward="true" selection-start-line="191" selection-end-line="191" />
+            <state relative-caret-position="157">
+              <caret line="130" lean-forward="true" selection-start-line="130" selection-end-line="130" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
-                <marker date="1535253492429" expanded="true" signature="193:518" ph="..." />
-                <marker date="1535253492429" expanded="true" signature="1645:1750" ph="..." />
+                <marker date="1535254301330" expanded="true" signature="193:518" ph="..." />
+                <marker date="1535254301330" expanded="true" signature="1645:1750" ph="..." />
               </folding>
             </state>
           </provider>
@@ -119,10 +117,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_constant.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="8" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
+            <state relative-caret-position="15">
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
               <folding>
-                <marker date="1535253012194" expanded="true" signature="58:281" ph="..." />
+                <marker date="1535253701986" expanded="true" signature="56:273" ph="..." />
               </folding>
             </state>
           </provider>
@@ -146,8 +144,8 @@
         <option value="$PROJECT_DIR$/Procfile" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/_constant.py" />
         <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/_constant.py" />
         <option value="$PROJECT_DIR$/app.py" />
       </list>
     </option>
@@ -313,16 +311,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_constant.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="8" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
-          <folding>
-            <marker date="1535253012194" expanded="true" signature="58:281" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -340,14 +328,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/_constant.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+          <folding>
+            <marker date="1535253701986" expanded="true" signature="56:273" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="191" lean-forward="true" selection-start-line="191" selection-end-line="191" />
+        <state relative-caret-position="157">
+          <caret line="130" lean-forward="true" selection-start-line="130" selection-end-line="130" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
-            <marker date="1535253492429" expanded="true" signature="193:518" ph="..." />
-            <marker date="1535253492429" expanded="true" signature="1645:1750" ph="..." />
+            <marker date="1535254301330" expanded="true" signature="193:518" ph="..." />
+            <marker date="1535254301330" expanded="true" signature="1645:1750" ph="..." />
           </folding>
         </state>
       </provider>

@@ -126,11 +126,12 @@ def run():
                         draw = ImageDraw.Draw(image)
                         (x, y) = (40, 70)
                         color = 'rgb(255, 255, 255)'
-                        font = ImageFont.truetype('Roboto-Light.ttf', size=22)
+                        font = ImageFont.truetype('Roboto-Light.ttf', size=23)
                         draw.text((x, y), text=text, fill=color, font=font)
 
-                        font = ImageFont.truetype('Roboto-Light.ttf', size=15)
-                        draw.text((10, 760), text='twitter.com/imgprocessing', font=font)
+                        font = ImageFont.truetype('Roboto-Light.ttf', size=17)
+                        footertext = 'twitter.com/imgprocessing - %s' % sender
+                        draw.text((10, 760), text=footertext, font=font)
 
                         image.save('tweet.png')
 
