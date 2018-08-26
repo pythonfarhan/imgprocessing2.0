@@ -105,13 +105,8 @@ def run():
                 textdm = getMessage(dm[i]['text'])
 
                 if textdm is None:
-                    if lap is '' and str(i) not in lap:
-                        lap = str(i)
-                        continue
-                    if i == lap:
-                        dm = getDm()
-                        print('please wait')
-                        time.sleep(60)
+                    print('index %s was ignored because not use []' % i)
+                    continue
 
                 if textdm is not None:
 
@@ -127,40 +122,20 @@ def run():
 
 
                     if textdm.lower() == 'test':
-                        if lap is '' and str(i) not in lap:
-                            lap = str(i)
-                            continue
-                        if i == lap:
-                            dm = getDm()
-                            print('please wait')
-                            time.sleep(60)
+                        print('index %s was ignored because using test' % i)
+                        continue
 
                     if 'https://' in textdm:
-                        if lap is '' and str(i) not in lap:
-                            lap = str(i)
-                            continue
-                        if i == lap:
-                            dm = getDm()
-                            print('please wait')
-                            time.sleep(60)
+                        print('index %s was ignored because posting link' % i)
+                        continue
 
                     if textdm.lower() == '#hehe':
-                        if lap is '' and str(i) not in lap:
-                            lap = str(i)
-                            continue
-                        if i == lap:
-                            dm = getDm()
-                            print('please wait')
-                            time.sleep(60)
+                        print('index %s was ignored because using only #hehe without any message' % i)
+                        continue
 
                     if len(textdm) <= 4:
-                        if lap is '' and str(i) not in lap:
-                            lap = str(i)
-                            continue
-                        if i == lap:
-                            dm = getDm()
-                            print('please wait')
-                            time.sleep(60)
+                        print('index %s was ignored length of message is less than 4' % i)
+                        continue
 
                     if dm[i]['sender'] == cache:
                         # delete the message
