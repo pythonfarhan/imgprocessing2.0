@@ -71,14 +71,18 @@ def getDm():
         d = dict(text=text, sender=sender, id=id)
         result.append(d)
         result.reverse()
+    print('dm reloaded')
     return result
 
 def run():
+
     api = python_twitter()
 
     print("imgprocessing2.0 is running..")
 
     cache = str()
+
+    list_of_sender = list()
 
     dm = []
 
@@ -88,21 +92,15 @@ def run():
 
             for i in range(len(dm)):
 
-                if dm[i]['text'].lower() == 'test':
-                    dm.remove(dm[i])
-                    continue
+                if len(list_of_sender) is not 0 and dm[i]['sender'] in list_of_sender: continue
 
-                if 'https://' in dm[i]['text']:
-                    dm.remove(dm[i])
-                    continue
+                if dm[i]['text'].lower() == 'test': continue
 
-                if dm[i]['text'].lower() == '#hehe':
-                    dm.remove(dm[i])
-                    continue
+                if 'https://' in dm[i]['text']: continue
 
-                if len(dm[i]['text']) <= 4:
-                    dm.remove(dm[i])
-                    continue
+                if dm[i]['text'].lower() == '#hehe': continue
+
+                if len(dm[i]['text']) <= 4: continue
 
                 if dm[i]['sender'] == cache:
                     # delete the message
@@ -159,8 +157,8 @@ def run():
                         postdm(username=sender, message=notify)
 
                         cache = sender
-
-                        dm.remove(dm[i])
+                        if sender not in list_of_sender:
+                            list_of_sender.append(sender)
 
                         # make interval
                         time.sleep(60)
@@ -209,16 +207,24 @@ def run():
                         postdm(username=sender, message=notify)
 
                         cache = sender
-
-                        dm.remove(dm[i])
+                        if sender not in list_of_sender:
+                            list_of_sender.append(sender)
 
                         # make interval
                         time.sleep(60)
 
+                if i == (len(dm) - 1):
+                    dm = getDm()
+                    if len(dm) == 0:
+                        print('no dm, please wait..')
+                        time.sleep(60)
+
+
+        if len(list_of_sender) is 40:
+            list_of_sender = []
 
         if len(dm) is 0:
             dm = getDm()
-            print('dm reloaded')
             if len(dm) == 0:
                 print('no dm, please wait..')
                 time.sleep(60)
