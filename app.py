@@ -94,6 +94,8 @@ def run():
 
     dm = []
 
+    lap = str()
+
     while True:
 
         if len(dm) is not 0:
@@ -103,14 +105,21 @@ def run():
                 textdm = getMessage(dm[i]['text'])
 
                 if textdm is None:
-                    print('index %s was ignored because not use []' % i)
+                    print('index %s was ignored because not use []')
                     continue
 
                 if textdm is not None:
 
                     if textdm in list_of_text:
                         print('index %s was ignored because in list_of_text' % i)
-                        continue
+                        if lap is '' and str(i) not in lap:
+                            lap = str(i)
+                            continue
+                        if i == lap:
+                            dm = getDm()
+                            print('please wait')
+                            time.sleep(60)
+
 
                     if textdm.lower() == 'test':
                         print('index %s was ignored because using test' % i)
@@ -251,7 +260,7 @@ def run():
                         time.sleep(60)
 
 
-        if len(list_of_text) is 15:
+        if len(list_of_text) is 40:
             list_of_text = []
 
         if len(dm) is 0:
