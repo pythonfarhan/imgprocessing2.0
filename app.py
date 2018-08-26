@@ -106,7 +106,13 @@ def run():
 
                 if textdm is None:
                     print('index %s was ignored because not use []' % i)
-                    continue
+                    if lap is '' and str(i) not in lap:
+                        lap = str(i)
+                        continue
+                    if i == lap:
+                        dm = getDm()
+                        print('please wait')
+                        time.sleep(60)
 
                 if textdm is not None:
 
