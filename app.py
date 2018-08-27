@@ -61,10 +61,11 @@ def getTweetId():
 
 # get dm
 def getDm():
-    api = python_twitter()
-    dm = api.GetDirectMessages(full_text=True, return_json=True)
+
     result = list()
     try:
+        api = python_twitter()
+        dm = api.GetDirectMessages(full_text=True, return_json=True)
         for i in range(len(dm)):
             text = dm[i]['text']
             id = dm[i]['id']
