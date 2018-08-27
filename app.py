@@ -64,17 +64,22 @@ def getDm():
     api = python_twitter()
     dm = api.GetDirectMessages(full_text=True, return_json=True)
     result = list()
-    for i in range(len(dm)):
-        text = dm[i]['text']
-        id = dm[i]['id']
-        sender = dm[i]['sender']['screen_name']
-        d = dict(text=text, sender=sender, id=id)
-        result.append(d)
-        result.reverse()
-    print('dm reloaded')
-    print('please wait..')
-    time.sleep(60)
-    return result
+    try:
+        for i in range(len(dm)):
+            text = dm[i]['text']
+            id = dm[i]['id']
+            sender = dm[i]['sender']['screen_name']
+            d = dict(text=text, sender=sender, id=id)
+            result.append(d)
+            result.reverse()
+        print('dm reloaded')
+        print('please wait..')
+        time.sleep(60)
+        return result
+    except Exception as e:
+        print('Oops something error: ', e)
+        time.sleep(60)
+        pass
 
 # get message
 def getMessage(text=str()):
