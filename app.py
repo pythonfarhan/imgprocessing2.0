@@ -79,6 +79,7 @@ def getDm():
     except Exception as e:
         print('Oops something error: ', e)
         time.sleep(60)
+        print('please wait..')
         pass
 
 # get message
