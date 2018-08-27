@@ -96,8 +96,6 @@ def deleteMessage(message_id):
 
 def run():
 
-    api = python_twitter()
-
     print("imgprocessing2.0 is running..")
 
     # handle duplicate text by sender
