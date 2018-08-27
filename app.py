@@ -92,6 +92,7 @@ def deleteMessage(message_id):
         time.sleep(5)
     except Exception as e:
         print("Oops something error: ", e)
+        time.sleep(60)
         pass
 
 def run():
