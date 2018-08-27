@@ -83,6 +83,17 @@ def getMessage(text=str()):
         return text
     return None
 
+# delete message
+def deleteMessage(message_id):
+    api = python_twitter()
+    try:
+        api.DestroyDirectMessage(message_id)
+        print('message deleted')
+        time.sleep(5)
+    except Exception as e:
+        print("Oops something error: ", e)
+        pass
+
 def run():
 
     api = python_twitter()
@@ -106,13 +117,15 @@ def run():
 
                 textdm = getMessage(dm[i]['text'])
 
+                message_id = dm[i]['id']
+
+                sender = dm[i]['sender']
+
                 if textdm is None:
-                    print('index %s was ignored because not use []' % i)
+                    print('index %s was ignored: %s not use []' % (i, sender))
                     print('loading in 5 sec..')
                     # delete the message
-                    message_id = dm[i]['id']
-                    api.DestroyDirectMessage(message_id=message_id)
-                    time.sleep(5)
+                    deleteMessage(message_id)
                     if lap is '' and str(i) not in lap:
                         lap = str(i)
                         continue
@@ -124,10 +137,9 @@ def run():
                 if textdm is not None:
 
                     if textdm in list_of_text:
-                        print('index %s was ignored because in list_of_text' % i)
+                        print('index %s was ignored: %s in list_of_text' % (i, sender))
                         # delete the message
-                        message_id = dm[i]['id']
-                        api.DestroyDirectMessage(message_id=message_id)
+                        deleteMessage(message_id)
                         if lap is '' and str(i) not in lap:
                             lap = str(i)
                             continue
@@ -138,38 +150,33 @@ def run():
 
 
                     if textdm.lower() == 'test':
-                        print('index %s was ignored because using test' % i)
+                        print('index %s was ignored: %s using test word' % (i, sender))
                         # delete the message
-                        message_id = dm[i]['id']
-                        api.DestroyDirectMessage(message_id=message_id)
+                        deleteMessage(message_id)
                         continue
 
                     if 'https://' in textdm:
-                        print('index %s was ignored because posting link' % i)
+                        print('index %s was ignored: %s posting link' % (i, sender))
                         # delete the message
-                        message_id = dm[i]['id']
-                        api.DestroyDirectMessage(message_id=message_id)
+                        deleteMessage(message_id)
                         continue
 
                     if textdm.lower() == '#hehe':
-                        print('index %s was ignored because using only #hehe without any message' % i)
+                        print('index %s was ignored: %s using #hehe without any message' % (i, sender))
                         # delete the message
-                        message_id = dm[i]['id']
-                        api.DestroyDirectMessage(message_id=message_id)
+                        deleteMessage(message_id)
                         continue
 
                     if len(textdm) <= 4:
-                        print('index %s was ignored length of message is less than 4' % i)
+                        print('index %s was ignored: %s message is less than 4' % (i, sender))
                         # delete the message
-                        message_id = dm[i]['id']
-                        api.DestroyDirectMessage(message_id=message_id)
+                        deleteMessage(message_id)
                         continue
 
                     if dm[i]['sender'] == cache:
                         # delete the message
-                        message_id = dm[i]['id']
-                        api.DestroyDirectMessage(message_id=message_id)
-                        print('index %s was ignored because in cache' % i)
+                        deleteMessage(message_id)
+                        print('index %s was ignored: %s in cache' % (i, sender))
                         continue
 
                     if len(textdm) <= 1000:
@@ -209,11 +216,10 @@ def run():
 
                             # tweet the tweet.png
                             tweetit('tweet.png', text=caption)
-                            print('index of %s' % i)
+                            print('index %s' % i)
 
                             # delete the message
-                            message_id = dm[i]['id']
-                            api.DestroyDirectMessage(message_id=message_id)
+                            deleteMessage(message_id)
 
                             # notify sender
                             tweet_id = getTweetId()
@@ -263,8 +269,7 @@ def run():
                             print('index of %s' % i)
 
                             # delete the message
-                            message_id = dm[i]['id']
-                            api.DestroyDirectMessage(message_id=message_id)
+                            deleteMessage(message_id)
 
                             # notify sender
                             tweet_id = getTweetId()
