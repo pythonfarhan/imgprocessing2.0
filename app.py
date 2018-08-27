@@ -109,6 +109,9 @@ def run():
                 if textdm is None:
                     print('index %s was ignored because not use []' % i)
                     print('loading in 5 sec..')
+                    # delete the message
+                    message_id = dm[i]['id']
+                    api.DestroyDirectMessage(message_id=message_id)
                     time.sleep(5)
                     if lap is '' and str(i) not in lap:
                         lap = str(i)
